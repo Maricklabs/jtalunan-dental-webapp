@@ -38,11 +38,11 @@ export default function AboutPage() {
               guidance.
             </p>
           </div>
-          <div className="card-shell overflow-hidden">
+          <div className="card-shell bg-sand/20 p-4 sm:p-6">
             <img
               src="/images/doctor_profile_hero.png"
               alt="Dr. JT Alunan"
-              className="h-72 w-full object-cover"
+              className="mx-auto block h-auto w-full max-w-[520px] object-contain"
             />
           </div>
         </div>

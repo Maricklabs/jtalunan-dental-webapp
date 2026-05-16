@@ -1,5 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "@/components/SectionHeading";
+
+type TransformationCard =
+  | {
+      title: string;
+      note: string;
+    }
+  | {
+      title: string;
+      images: string[];
+    };
 
 const coreCards = [
   {
@@ -43,18 +54,14 @@ const testimonials = [
   }
 ];
 
-const transformations = [
+const transformations: TransformationCard[] = [
   {
     title: "Smile Makeover",
-    note: "Before & After photo placeholders"
+    images: ["/images/adofferings_2.jpg", "/images/adofferings_4.jpg"]
   },
   {
-    title: "Teeth Whitening",
-    note: "Before & After photo placeholders"
-  },
-  {
-    title: "Veneers",
-    note: "Before & After photo placeholders"
+    title: "Braces Placement",
+    images: ["/images/adofferings_1.jpg", "/images/adofferings_5.jpg"]
   }
 ];
 
@@ -141,9 +148,30 @@ export default function HomePage() {
           {transformations.map((item) => (
             <div key={item.title} className="card-shell p-6">
               <h3 className="font-display text-xl text-ink">{item.title}</h3>
-              <div className="mt-4 flex min-h-[220px] items-center justify-center rounded-3xl border border-sand/80 bg-sand/60 text-base text-ink/60">
-                {item.note}
-              </div>
+              {"images" in item ? (
+                <div className="mt-4 grid overflow-hidden rounded-3xl">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {item.images.map((src, index) => (
+                      <div
+                        key={src}
+                        className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-sand/70 bg-white p-1"
+                      >
+                        <Image
+                          src={src}
+                          alt={`${item.title} ${index + 1}`}
+                          fill
+                          className="rounded-xl object-cover"
+                          sizes="(max-width: 640px) 100vw, 50vw"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-4 flex min-h-[220px] items-center justify-center rounded-3xl border border-sand/80 bg-sand/60 text-base text-ink/60">
+                  {item.note}
+                </div>
+              )}
             </div>
           ))}
         </div>
