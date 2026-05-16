@@ -1,9 +1,11 @@
 import "./globals.css";
+import "leaflet/dist/leaflet.css";
 import type { Metadata } from "next";
 import { Playfair_Display, Poppins } from "next/font/google";
 import HeaderBanner from "@/components/HeaderBanner";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import FooterWrapper from "@/components/FooterWrapper";
 
 const display = Playfair_Display({
   subsets: ["latin"],
@@ -48,7 +50,7 @@ export default function RootLayout({
           >
             Messenger
           </a>
-          <SiteFooter />
+          <FooterWrapper />
         </div>
       </body>
     </html>

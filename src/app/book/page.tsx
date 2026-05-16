@@ -71,14 +71,11 @@ export default function BookPage() {
       <section className="section-pad">
         <div className="space-y-10">
           <div>
-            <p className="pill">Make an Appointment</p>
-            <h1 className="mt-5 font-display text-4xl text-ink sm:text-5xl">
-              Begin your journey to a brighter, healthier smile today.
-            </h1>
-            <p className="mt-4 text-base text-ink/70">
-              Fill out the form below and we will reach out to confirm your schedule.
-            </p>
-            <p className="mt-3 text-sm text-ink/60">Fields marked with * are required.</p>
+            <SectionHeading title="Make an Appointment" align="center" size="xl" />
+              <br></br><br></br>
+            <p className="mt-4 text-base text-ink/70 px-4 10 pt-8">
+            Fill out the form below and we will reach out to confirm your schedule. <br></br><br></br>
+            Fields marked with * are required.</p>
           </div>
 
           <form className="card-shell space-y-8 p-6" onSubmit={handleSubmit}>
@@ -186,7 +183,7 @@ export default function BookPage() {
             </div>
 
             <button type="submit" className="btn-primary w-full">
-              Click to Schedule Appointment
+              Schedule Appointment
             </button>
           </form>
         </div>
