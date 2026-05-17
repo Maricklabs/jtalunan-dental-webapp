@@ -13,7 +13,7 @@ export default function HeaderBanner({
   alt = "JT Alunan Dental Clinic banner"
 }: HeaderBannerProps) {
   return (
-  <div className="relative h-[150px] w-full overflow-hidden border-b border-sand">
+  <div className="relative h-[115px] w-full overflow-hidden border-b border-sand">
       <picture>
         <source media="(min-width: 768px)" srcSet={desktopSrc} />
         <img

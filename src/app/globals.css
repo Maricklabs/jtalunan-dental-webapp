@@ -41,6 +41,15 @@ img {
   max-width: 100%;
 }
 
+@keyframes testimonial-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 @layer components {
   .section-pad {
     @apply px-4 sm:px-6 lg:px-8 py-14 lg:py-20;
@@ -64,5 +73,54 @@ img {
 
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-full border border-olive/40 bg-transparent px-6 py-3 text-base font-semibold uppercase tracking-[0.12em] text-olive transition hover:border-olive hover:bg-olive/10;
+  }
+
+  .testimonial-carousel {
+    @apply mt-10 overflow-hidden;
+  }
+
+  .testimonial-track {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: testimonial-scroll 28s linear infinite;
+  }
+
+  .testimonial-item {
+    min-width: 260px;
+  }
+
+  .testimonial-card {
+    @apply overflow-hidden rounded-3xl border border-sand/70 bg-white/80 shadow-soft;
+  }
+
+  .testimonial-media {
+    @apply relative h-56 w-full;
+  }
+
+  .testimonial-fade {
+    @apply absolute inset-0 bg-gradient-to-t from-white/95 via-white/20 to-transparent;
+  }
+
+  .testimonial-body {
+    @apply space-y-3 px-6 py-5;
+  }
+
+  .testimonial-quote {
+    @apply text-base text-ink/75;
+  }
+
+  .testimonial-name {
+    @apply text-sm font-semibold uppercase tracking-[0.2em] text-ink/70;
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-item {
+      min-width: 320px;
+    }
+
+    .testimonial-media {
+      @apply h-64;
+    }
   }
 }

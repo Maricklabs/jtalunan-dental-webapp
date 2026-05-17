@@ -41,15 +41,24 @@ export default function RootLayout({
           <HeaderBanner />
           <SiteHeader />
           <main className="flex-1">{children}</main>
-          <a
-            href="https://m.me/JTAlunanDentalClinic"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary fixed bottom-6 right-6 z-50 animate-float"
-            aria-label="Chat on Messenger"
-          >
-            Messenger
-          </a>
+          <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+            <a
+              href="https://m.me/JTAlunanDentalClinic"
+              target="_blank"
+              rel="noreferrer"
+              className="flex h-16 w-16 items-center justify-center rounded-full bg-[#0084FF] text-white shadow-lift transition hover:-translate-y-0.5"
+              aria-label="Chat on Messenger"
+            >
+              <i className="fa-brands fa-facebook-messenger text-3xl" aria-hidden="true" />
+            </a>
+            <button
+              type="button"
+              className="flex h-16 w-16 items-center justify-center rounded-full bg-ink text-cream shadow-lift transition hover:-translate-y-0.5"
+              aria-label="Open chatbot"
+            >
+              <i className="fa-solid fa-robot text-3xl" aria-hidden="true" />
+            </button>
+          </div>
           <FooterWrapper />
         </div>
       </body>

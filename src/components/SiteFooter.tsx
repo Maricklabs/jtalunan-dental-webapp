@@ -33,6 +33,11 @@ export default function SiteFooter({ page }: SiteFooterProps) {
       <footer className="border-t border-sand/70 bg-cream/90">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-3 lg:px-8">
           <div>
+            <img
+              src="/images/Logo.png"
+              alt="JT Alunan Dental Clinic logo"
+              className="h-auto w-40"
+            />
             <p className="font-display text-2xl text-ink">JT Alunan Dental Clinic</p>
             <p className="mt-3 text-base text-ink/70">
               Gentle dental care, alaga para sa ngiti mo. Community-centered care in
