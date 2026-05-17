@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "@/components/SectionHeading";
 
-
 const coreCards = [
   {
     title: "General Dentistry",
@@ -97,51 +96,70 @@ function TestimonialCarousel() {
 
   return (
     <div className="mt-10">
-      <div className="relative flex items-center justify-center gap-6">
-        {/* Prev button */}
+      {/* Cards row */}
+      <div className="relative flex w-full items-center justify-center gap-4 px-2 sm:gap-6 sm:px-0">
+        {/* Prev — desktop only */}
         <button
           onClick={prev}
-          className="z-10 flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
           aria-label="Previous testimonial"
         >
           <i className="fa-solid fa-chevron-left" />
         </button>
 
-        {/* Cards */}
-        <div className="flex items-center justify-center gap-6">
+        <div className="flex flex-1 items-center justify-center gap-4 sm:gap-6">
           {cards.map(({ story, position }) => {
             const isCenter = position === "center";
             return (
               <div
                 key={`${story.name}-${position}`}
-                className={`overflow-hidden rounded-lg border border-sand/60 bg-white transition-all duration-500 ${isCenter
-                    ? "z-10 w-96 scale-105 shadow-md"
-                    : "hidden w-80 opacity-60 sm:block"
-                  }`}
+                className={`overflow-hidden rounded-lg border border-sand/60 bg-white transition-all duration-500 ${
+                  isCenter
+                    ? "z-10 w-56 scale-105 shadow-md sm:w-96"
+                    : "hidden w-64 opacity-60 sm:block sm:w-80"
+                }`}
               >
-                <div className={`relative w-full ${isCenter ? "h-80" : "h-64"}`}>
+                <div className={`relative w-full ${isCenter ? "h-44 sm:h-80" : "h-52 sm:h-64"}`}>
                   <Image
                     src={story.image}
                     alt={story.name}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 640px) 100vw, 384px"
+                    sizes="(max-width: 640px) 224px, 384px"
                   />
                 </div>
-                <div className="p-6">
-                  <p className="font-display text-3xl text-ink/30">"</p>
-                  <p className="mt-2 text-base text-ink/80">{story.quote}</p>
-                  <p className="mt-5 text-base font-semibold text-ink">— {story.name}</p>
+                <div className="p-4 sm:p-6">
+                  <p className="font-display text-2xl text-ink/30">"</p>
+                  <p className="mt-1 text-sm text-ink/80 sm:mt-2 sm:text-base">{story.quote}</p>
+                  <p className="mt-3 text-sm font-semibold text-ink sm:mt-5 sm:text-base">— {story.name}</p>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Next button */}
+        {/* Next — desktop only */}
         <button
           onClick={next}
-          className="z-10 flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          aria-label="Next testimonial"
+        >
+          <i className="fa-solid fa-chevron-right" />
+        </button>
+      </div>
+
+      {/* Mobile buttons — outside and below the cards row */}
+      <div className="mt-4 flex justify-center gap-3 sm:hidden">
+        <button
+          onClick={prev}
+          className="flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          aria-label="Previous testimonial"
+        >
+          <i className="fa-solid fa-chevron-left" />
+        </button>
+        <button
+          onClick={next}
+          className="flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
           aria-label="Next testimonial"
         >
           <i className="fa-solid fa-chevron-right" />
@@ -154,8 +172,9 @@ function TestimonialCarousel() {
           <button
             key={i}
             onClick={() => setActive(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-6 bg-ink" : "w-1.5 bg-ink/30"
-              }`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === active ? "w-6 bg-ink" : "w-1.5 bg-ink/30"
+            }`}
             aria-label={`Go to testimonial ${i + 1}`}
           />
         ))}
@@ -178,19 +197,26 @@ export default function HomePage() {
     <div>
       {/* Hero */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-cream">
+        <Image
+          src="/heroimages/2.svg"
+          alt="Dental care illustration"
+          fill
+          className="sm:hidden object-contain object-right"
+          priority
+        />
         {heroImages.map((src, i) => (
           <Image
             key={src}
             src={src}
             alt="Dental care illustration"
             fill
-            className={`object-contain object-right transition-opacity duration-700 ${i === heroIndex ? "opacity-100" : "opacity-0"
-              }`}
+            className={`hidden sm:block object-contain object-right transition-opacity duration-700 ${
+              i === heroIndex ? "opacity-100" : "opacity-0"
+            }`}
             priority={i === 0}
           />
         ))}
-        {/* Left-only fade so text is readable but image is unobstructed */}
-        <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-cream via-cream/80 to-transparent" />
+        <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-cream via-cream/80 to-transparent sm:w-2/3" />
         <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-olive/15 blur-3xl" />
         <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-terracotta/10 blur-3xl" />
         <div className="relative z-10 w-full px-6 py-12 sm:px-12 lg:pl-24 lg:pr-6">
@@ -218,27 +244,6 @@ export default function HomePage() {
               <Link href="/services" className="btn-secondary">
                 Learn More
               </Link>
-            </div>
-            {/* Doctor profile: image + info side-by-side */}
-            <div className="mt-8">
-              <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-                <div className="w-40 shrink-0 overflow-hidden rounded-lg sm:w-48">
-                  <Image
-                    src="/images/doctor_profile_1.jpg"
-                    alt="Dr. Jogi Terese Alunan"
-                    width={192}
-                    height={192}
-                    className="h-auto w-full object-cover"
-                  />
-                </div>
-                <div className="max-w-xl text-center sm:text-left">
-                  <h3 className="font-display text-xl text-ink">Dr. Jogi Terese Alunan</h3>
-                  <p className="mt-2 text-base text-ink/70">
-                    Dr. JT Alunan focuses on preventive care and patient education, making sure you understand every option without pressure or hidden fees.
-                  </p>
-                  <p className="mt-3 text-sm text-ink/60">BDS — General Dentistry · Community-focused care</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -304,10 +309,10 @@ export default function HomePage() {
                 className="h-auto w-full max-h-[70vh] object-contain object-center"
               />
             </div>
-            <div className="grid grid-cols-2 gap-x-10 gap-y-10 pr-8">
+            <div className="grid grid-cols-1 gap-x-10 gap-y-8 pr-8 md:grid-cols-2">
               {whyChooseItems.map((item) => (
-                <div key={item.title} className="flex gap-4">
-                  <div className="mt-1 shrink-0 text-[#a07840]">
+                <div key={item.title} className="flex items-start gap-4 px-4 sm:px-0">
+                  <div className="shrink-0 text-[#a07840]">
                     <i className="fa-solid fa-check text-3xl" aria-hidden="true" />
                   </div>
                   <div>
@@ -324,4 +329,4 @@ export default function HomePage() {
       </section>
     </div>
   );
-} 
+}
