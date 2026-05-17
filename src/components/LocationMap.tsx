@@ -123,7 +123,11 @@ export default function LocationMap() {
 
   return (
     <div className="space-y-4">
-      {status ? <p className="text-sm uppercase tracking-[0.25em] text-olive">{status}</p> : null}
+      {status ? (
+        <p className="text-sm uppercase tracking-[0.25em] text-olive">
+          Route status: {status}
+        </p>
+      ) : null}
       <MapContainer
         className={mapContainerClassName}
         center={clinicLatLng}
@@ -136,9 +140,9 @@ export default function LocationMap() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={clinicLatLng}>
-          <Popup>JT Alunan Dental Clinic</Popup>
+          <Popup>JT Alunan Clinic</Popup>
           <Tooltip direction="top" offset={[0, -18]} permanent>
-            Clinic Location
+            JT Alunan Clinic
           </Tooltip>
         </Marker>
         {userLocation ? (

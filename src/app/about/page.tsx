@@ -24,6 +24,33 @@ const values = [
   }
 ];
 
+const whyChooseItems = [
+  {
+    title: "Skilled Dental Experts",
+    description: "Experienced team providing gentle, confident care for every smile."
+  },
+  {
+    title: "Personalized Treatment Plans",
+    description: "Care plans tailored to your needs, schedule, and comfort."
+  },
+  {
+    title: "State-of-the-Art Tools",
+    description: "Modern equipment for accurate diagnosis and safer procedures."
+  },
+  {
+    title: "Full Range of Services",
+    description: "From cleanings to braces and cosmetic makeovers in one clinic."
+  },
+  {
+    title: "Transparent & Affordable",
+    description: "Honest pricing with flexible options, no hidden surprises."
+  },
+  {
+    title: "Trusted by Families",
+    description: "Community-first care that patients recommend to loved ones."
+  }
+];
+
 export default function AboutPage() {
   return (
     <div>
@@ -121,7 +148,46 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
+      {/* Why Choose */}
+            <section className="flex min-h-screen items-center section-pad">
+              <div className="w-full">
+                <div className="text-center">
+                  <h2 className="font-display text-4xl text-ink sm:text-5xl">
+                    Why Choose JT Alunan Dental Clinic
+                  </h2>
+                  <p className="mt-4 max-w-2xl mx-auto text-lg text-ink/70">
+                    Gentle expertise, community care, and modern dentistry designed for you.
+                  </p>
+                </div>
+      
+                <div className="mt-12 grid lg:grid-cols-[1fr_2fr] gap-6 lg:items-center pr-8">
+                  <div className="flex items-center justify-center">
+                    <Image
+                      src="/images/adposter_2.jpg"
+                      alt="JT Alunan Dental Clinic illustration"
+                      width={480}
+                      height={620}
+                      className="h-auto w-full max-h-[70vh] object-contain object-center"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-x-10 gap-y-8 pr-8 md:grid-cols-2">
+                    {whyChooseItems.map((item) => (
+                      <div key={item.title} className="flex items-start gap-4 px-4 sm:px-0">
+                        <div className="shrink-0 text-[#a07840]">
+                          <i className="fa-solid fa-check text-3xl" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <h3 className="font-display text-xl font-semibold text-[#a07840]">
+                            {item.title}
+                          </h3>
+                          <p className="mt-2 text-base text-ink/70">{item.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
     </div>
   );
 }

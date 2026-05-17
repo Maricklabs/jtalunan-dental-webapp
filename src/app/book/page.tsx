@@ -20,6 +20,7 @@ const timeSlots = [
 const STORAGE_KEY = "jt-clinic-appointment-draft";
 
 export default function BookPage() {
+  const todayISO = new Date().toISOString().split("T")[0];
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -83,6 +84,9 @@ export default function BookPage() {
     if (!formValues.date.trim()) missingFields.push("Date");
     if (!formValues.time.trim()) missingFields.push("Time");
     if (selectedConcerns.length === 0) missingFields.push("At least one concern");
+    if (formValues.date && formValues.date < todayISO) {
+      missingFields.push("Date must be today or later");
+    }
 
     if (missingFields.length > 0) {
       setSuccessOpen(false);
@@ -207,6 +211,7 @@ export default function BookPage() {
                     className="input-field mt-2"
                     value={formValues.date}
                     onChange={handleChange("date")}
+                    min={todayISO}
                   />
                 </label>
                 <div>

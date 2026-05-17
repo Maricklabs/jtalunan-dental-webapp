@@ -68,6 +68,14 @@ export async function POST(request: Request) {
   if (!payload.time?.trim()) missing.push("time");
   if (!payload.concerns || payload.concerns.length === 0) missing.push("concerns");
 
+  const todayISO = new Date().toISOString().split("T")[0];
+  if (payload.date && payload.date < todayISO) {
+    return NextResponse.json(
+      { error: "Date must be today or later." },
+      { status: 400 }
+    );
+  }
+
   if (missing.length > 0) {
     return NextResponse.json(
       { error: `Missing fields: ${missing.join(", ")}` },
@@ -83,7 +91,8 @@ export async function POST(request: Request) {
     email: payload.email?.trim(),
     date: payload.date,
     time: payload.time,
-    concerns: payload.concerns
+    concerns: payload.concerns,
+    created_at: new Date().toISOString()
   });
 
   if (error) {

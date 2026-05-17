@@ -78,6 +78,15 @@ export default function SiteFooter({ page }: SiteFooterProps) {
                 className="transition hover:text-olive">
                 <i className="fa-solid fa-envelope" />
               </a>
+              <a
+                href="https://www.instagram.com/jtalunandentalclinic/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="transition hover:text-olive"
+              >
+                <i className="fa-brands fa-instagram" />
+              </a>
             </div>
           </div>
         </div>
