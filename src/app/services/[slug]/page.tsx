@@ -189,10 +189,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </div>
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <Link href="/book" className="btn-primary">
+                  <Link href="/book" className="btn-primary w-full sm:w-auto px-4 sm:px-6 py-3 text-sm sm:text-base tracking-[0.08em]">
                     Book an Appointment
                   </Link>
-                  <Link href="/services" className="btn-secondary">
+                  <Link href="/services" className="btn-secondary w-full sm:w-auto px-4 sm:px-6 py-3 text-sm sm:text-base tracking-[0.08em]">
                     Back to Services
                   </Link>
                 </div>
