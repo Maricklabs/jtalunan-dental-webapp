@@ -28,7 +28,10 @@ export default function ChatWidget() {
     const trimmed = text.trim();
     if (!trimmed || isSending) return;
 
-    const nextMessages = [...messages, { role: "user", content: trimmed }];
+    const nextMessages: ChatMessage[] = [
+      ...messages,
+      { role: "user", content: trimmed }
+    ];
     setMessages(nextMessages);
     setInput("");
     setIsSending(true);
