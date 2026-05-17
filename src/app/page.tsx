@@ -219,7 +219,27 @@ export default function HomePage() {
                 Learn More
               </Link>
             </div>
-
+            {/* Doctor profile: image + info side-by-side */}
+            <div className="mt-8">
+              <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+                <div className="w-40 shrink-0 overflow-hidden rounded-lg sm:w-48">
+                  <Image
+                    src="/images/doctor_profile_1.jpg"
+                    alt="Dr. Jogi Terese Alunan"
+                    width={192}
+                    height={192}
+                    className="h-auto w-full object-cover"
+                  />
+                </div>
+                <div className="max-w-xl text-center sm:text-left">
+                  <h3 className="font-display text-xl text-ink">Dr. Jogi Terese Alunan</h3>
+                  <p className="mt-2 text-base text-ink/70">
+                    Dr. JT Alunan focuses on preventive care and patient education, making sure you understand every option without pressure or hidden fees.
+                  </p>
+                  <p className="mt-3 text-sm text-ink/60">BDS — General Dentistry · Community-focused care</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
