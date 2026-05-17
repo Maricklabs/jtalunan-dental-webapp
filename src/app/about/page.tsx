@@ -40,15 +40,6 @@ export default function AboutPage() {
               treatment, patient education, and a calm, reassuring approach so you
               can make confident decisions about your oral health.
             </p>
-
-            <div className="mt-6 flex flex-wrap gap-3 justify-center">
-              <Link href="/book" className="btn-primary">
-                View Services
-              </Link>
-              <Link href="/services" className="btn-secondary">
-                Book an Appointment
-              </Link>
-            </div>
           </div>
 
           {/* Profile Card & Image Side-by-Side */}
@@ -131,30 +122,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="section-pad bg-cream/20">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionHeading
-            eyebrow="Our Values"
-            title="Care Rooted in Community"
-            subtitle="Three simple promises that guide every visit."
-          />
-
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {values.map((item) => (
-              <div key={item.title} className="card-shell p-6 flex flex-col">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-full bg-olive/10 p-3 text-olive">
-                    <i className="fa-solid fa-heart text-lg" aria-hidden="true" />
-                  </div>
-                  <h4 className="font-display text-md text-ink">{item.title}</h4>
-                </div>
-                <p className="mt-3 text-sm text-ink/70">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
