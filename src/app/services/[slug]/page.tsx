@@ -165,30 +165,30 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
   return (
     <div>
       <section className="relative">
-        <div className="relative h-72 md:h-96 w-full bg-sand/10">
+        <div className="relative h-56 sm:h-72 md:h-96 w-full bg-sand/10">
           <Image src={data.hero} alt={data.title} fill className="object-cover opacity-95" />
         </div>
-        <div className="-mt-24 max-w-6xl mx-auto px-6">
-          <div className="bg-white rounded-xl shadow-lg p-8 md:p-12 border border-sand/30">
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="md:w-2/3">
-                <h1 className="font-display text-3xl md:text-4xl text-ink">{data.title}</h1>
-                <p className="mt-2 text-ink/70">{data.subtitle}</p>
+        <div className="-mt-10 sm:-mt-16 md:-mt-24 max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="bg-white rounded-2xl shadow-lg p-5 sm:p-8 md:p-12 border border-sand/30">
+            <div className="flex flex-col gap-6 md:flex-row md:gap-8 items-start">
+              <div className="w-full md:w-2/3">
+                <h1 className="font-display text-2xl sm:text-3xl md:text-4xl text-ink text-balance">{data.title}</h1>
+                <p className="mt-2 text-sm sm:text-base text-ink/70">{data.subtitle}</p>
 
-                <div className="mt-6 prose prose-sand max-w-none">
+                <div className="mt-5 sm:mt-6 prose prose-sm sm:prose prose-sand max-w-none">
                   <p>{data.description}</p>
                 </div>
 
-                <div className="mt-6">
-                  <h4 className="font-semibold text-ink">What we do</h4>
-                  <ul className="list-disc list-inside mt-3 text-ink/80 space-y-2">
+                <div className="mt-5 sm:mt-6">
+                  <h4 className="font-semibold text-ink text-sm sm:text-base">What we do</h4>
+                  <ul className="list-disc list-inside mt-3 text-sm sm:text-base text-ink/80 space-y-2">
                     {data.highlights.map((h) => (
                       <li key={h}>{h}</li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mt-6 flex gap-3">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link href="/book" className="btn-primary">
                     Book an Appointment
                   </Link>
@@ -199,20 +199,20 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               </div>
             </div>
 
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <div className="mt-8 sm:mt-10 grid gap-3 sm:gap-4 md:grid-cols-3">
               {data.highlights.map((item) => (
-                <div key={item} className="rounded-2xl border border-sand/40 bg-sand/10 p-5">
-                  <p className="font-display text-lg text-ink">{item}</p>
+                <div key={item} className="rounded-2xl border border-sand/40 bg-sand/10 p-4 sm:p-5">
+                  <p className="font-display text-base sm:text-lg text-ink">{item}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-10">
+            <div className="mt-8 sm:mt-10">
               <SectionHeading eyebrow="Gallery" title="Before & After" size="md" />
               <p className="mt-4 max-w-3xl text-sm text-ink/70">
                 The gallery is temporarily simplified while we refine the final presentation.
               </p>
-              <div className="mt-6">
+              <div className="mt-5 sm:mt-6">
                 <ServiceGallery items={data.gallery} />
               </div>
             </div>
