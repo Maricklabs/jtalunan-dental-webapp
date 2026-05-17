@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "@/components/SectionHeading";
 
@@ -29,33 +28,39 @@ const coreServices = [
   }
 ];
 
-export default function ServicesPage() {
-  const showcaseItems = [
-    { src: "/images/cleaning.png", alt: "Cleaning", slug: "general-dentistry" },
-    { src: "/images/braces.png", alt: "Braces", slug: "orthodontics-braces" },
-    { src: "/images/dentures.png", alt: "Dentures", slug: "cosmetic-dentistry" }
-  ];
+const careWorkflow = [
+  {
+    title: "Consult",
+    description: "We listen, assess, and explain what your smile needs in plain language."
+  },
+  {
+    title: "Plan",
+    description: "We prepare a treatment path that fits your goals, comfort, and schedule."
+  },
+  {
+    title: "Treat",
+    description: "Care is delivered gently with clear guidance before, during, and after."
+  }
+];
 
+export default function ServicesPage() {
   return (
     <div>
-      {/* Hero / Intro */}
       <section className="section-pad bg-cream/50">
         <div className="max-w-7xl mx-auto px-6">
-          <SectionHeading title="Our Services" align="center" size="xl" />
+          <div className="mx-auto max-w-3xl text-center">
+            <SectionHeading
+              align="center"
+              title="Our Services"
+              subtitle="A clean, straightforward view of the care we provide, organized to help you find the right treatment quickly."
+              size="xl"
+            />
 
-          {/* Subheader: Text & CTA */}
-          <div className="mt-8 max-w-3xl mx-auto text-center">
-            <p className="text-lg text-ink/80 leading-relaxed">
-              From preventive check-ups to smile makeovers, our treatments are designed
-              to keep your smile healthy, confident, and pain-free. Each service is
-              delivered with gentle care, clear explanations, and your comfort in mind.
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-3 justify-center">
-              <Link href="/book" className="btn-primary">
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link href="/book" className="btn-primary w-full sm:w-auto">
                 Make an Appointment
               </Link>
-              <Link href="/location" className="btn-secondary">
+              <Link href="/location" className="btn-secondary w-full sm:w-auto">
                 Visit Our Clinic
               </Link>
             </div>
@@ -63,60 +68,69 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Showcase Section */}
       <section className="section-pad">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeading
-            eyebrow="Showcase"
-            title="What to Expect"
-            subtitle="A quick look at our common treatments and outcomes."
+            eyebrow="Workflow"
+            title="A Simple Care Process"
+            subtitle="A calm, structured flow that makes every visit easier to understand and follow."
+            align="center"
           />
 
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {showcaseItems.map((it) => (
-              <a key={it.src} href={`#${it.slug}`} className="group">
-                <div className="overflow-hidden rounded-xl bg-white border border-sand/40 shadow transition-all duration-300 hover:shadow-lg hover:border-sand/60">
-                  <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden bg-sand/20">
-                    <Image
-                      src={it.src}
-                      alt={it.alt}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h4 className="font-display text-lg text-ink">{it.alt}</h4>
-                    <p className="mt-1 text-sm text-ink/70">Discover this service →</p>
-                  </div>
-                </div>
-              </a>
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {careWorkflow.map((step, index) => (
+              <div key={step.title} className="card-shell p-6">
+                <div className="pill w-fit">0{index + 1}</div>
+                <h3 className="mt-4 font-display text-2xl text-ink">{step.title}</h3>
+                <p className="mt-3 text-ink/70 leading-relaxed">{step.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Core Services Section */}
       <section className="section-pad bg-cream/20">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeading
             eyebrow="Core Services"
             title="Focused Care Across Every Treatment Area"
-            subtitle="Each service is handled with gentle care and clear guidance."
+            subtitle="Each service is presented with the same clean structure so the page feels organized and easy to scan."
+            align="center"
           />
 
-          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
             {coreServices.map((service) => (
-              <div key={service.title} className="card-shell p-6 flex flex-col">
-                <h3 id={service.slug} className="font-display text-xl text-ink">{service.title}</h3>
-                <p className="mt-2 text-base text-ink/70 leading-relaxed flex-grow">{service.description}</p>
-                <ul className="mt-4 space-y-2 text-sm text-ink/70 list-disc list-inside">
+              <div key={service.title} id={service.slug} className="card-shell p-6 sm:p-7 flex flex-col">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="pill">Core Service</p>
+                    <h3 className="mt-4 font-display text-2xl text-ink">{service.title}</h3>
+                  </div>
+                  <span className="rounded-full border border-sand/60 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
+                    Available
+                  </span>
+                </div>
+
+                <p className="mt-4 text-base text-ink/70 leading-relaxed flex-grow">{service.description}</p>
+
+                <div className="mt-6 flex flex-wrap gap-2">
                   {service.items.map((item) => (
-                    <li key={item}>{item}</li>
+                    <span
+                      key={item}
+                      className="rounded-full border border-sand/60 bg-sand/15 px-3 py-1 text-sm text-ink/75"
+                    >
+                      {item}
+                    </span>
                   ))}
-                </ul>
-                <div className="mt-5">
-                  <Link href={`/services/${service.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-olive hover:text-olive/80 transition">
-                    Learn more <i className="fa-solid fa-arrow-right text-xs" />
+                </div>
+
+                <div className="mt-6">
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="btn-secondary w-full sm:w-auto px-5 py-3 text-sm sm:text-base tracking-[0.08em]"
+                  >
+                    Learn more
+                    <i className="fa-solid fa-arrow-right text-xs" />
                   </Link>
                 </div>
               </div>
