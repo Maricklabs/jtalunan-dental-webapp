@@ -4,131 +4,125 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 type Props = {
-  images: string[];
+  items: {
+    src: string;
+    alt: string;
+    eyebrow?: string;
+    title?: string;
+  }[];
   intervalMs?: number;
 };
 
-export default function ServiceGallery({ images, intervalMs = 3500 }: Props) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+export default function ServiceGallery({ items, intervalMs = 3500 }: Props) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const isProgrammaticRef = useRef(false);
+  const total = items.length;
 
   useEffect(() => {
-    if (!images || images.length <= 1) return;
+    if (total <= 1) return;
     if (paused) return;
 
     const t = setInterval(() => {
-      setIndex((i) => (i + 1) % images.length);
+      setIndex((i) => (i + 1) % total);
     }, intervalMs);
 
     return () => clearInterval(t);
-  }, [images, intervalMs, paused]);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const slide = el.children[index] as HTMLElement | undefined;
-    if (slide) {
-      const slideLeft = slide.offsetLeft;
-      const slideWidth = slide.clientWidth;
-      const containerWidth = el.clientWidth;
-      const target = Math.max(0, slideLeft - (containerWidth - slideWidth) / 2);
-      isProgrammaticRef.current = true;
-      el.scrollTo({ left: target, behavior: "smooth" });
-      // clear the flag after animation (approx)
-      const id = window.setTimeout(() => {
-        isProgrammaticRef.current = false;
-      }, 550);
-      return () => clearTimeout(id);
-    }
-  }, [index]);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    let raf = 0;
-    const onScroll = () => {
-      if (isProgrammaticRef.current) return;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        // Find the child whose center is nearest to container center
-        const containerCenter = el.scrollLeft + el.clientWidth / 2;
-        let bestIndex = 0;
-        let bestDist = Infinity;
-        for (let i = 0; i < el.children.length; i++) {
-          const child = el.children[i] as HTMLElement;
-          const childCenter = child.offsetLeft + child.clientWidth / 2;
-          const dist = Math.abs(containerCenter - childCenter);
-          if (dist < bestDist) {
-            bestDist = dist;
-            bestIndex = i;
-          }
-        }
-        if (bestIndex !== index) setIndex(bestIndex);
-      });
-    };
-
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
-  }, [index]);
+  }, [total, intervalMs, paused]);
 
   const go = (dir: number) => {
-    setIndex((i) => (i + dir + images.length) % images.length);
+    setIndex((i) => (i + dir + total) % total);
   };
 
+  const getIndex = (offset: number) => (index + offset + total) % total;
+  const cards = total > 1
+    ? [
+        { item: items[getIndex(-1)], position: "left" as const },
+        { item: items[getIndex(0)], position: "center" as const },
+        { item: items[getIndex(1)], position: "right" as const }
+      ]
+    : [{ item: items[0], position: "center" as const }];
+
   return (
-    <div>
-      <div className="relative">
-        <div
-          ref={containerRef}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
-          className="w-full overflow-x-auto scroll-smooth snap-x snap-mandatory flex gap-4 py-2 -mx-4 px-4"
-          style={{ scrollbarWidth: "thin" }}
+    <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div className="relative flex w-full items-center justify-center gap-4 px-2 sm:gap-6 sm:px-0">
+        <button
+          onClick={() => go(-1)}
+          className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          aria-label="Previous service image"
         >
-          {images.map((src, i) => (
-            <div
-              key={src + i}
-              className={`snap-center flex-shrink-0 w-full sm:w-[min(720px,100%)] rounded-lg overflow-hidden border border-sand/20 bg-white shadow-sm transition-all duration-300 ${
-                i === index ? "opacity-100 scale-100" : "opacity-40 scale-95"
-              }`}
-            >
-              <div style={{ position: "relative", height: 380 }}>
-                <Image src={src} alt={`gallery-${i}`} fill className="object-cover" />
+          <i className="fa-solid fa-chevron-left" />
+        </button>
+
+        <div className="flex flex-1 items-center justify-center gap-4 sm:gap-6">
+          {cards.map(({ item, position }) => {
+            const isCenter = position === "center";
+            return (
+              <div
+                key={`${item.src}-${position}`}
+                className={`overflow-hidden rounded-2xl border border-sand/60 bg-white transition-all duration-500 ${
+                  isCenter
+                    ? "z-10 w-64 scale-105 shadow-md sm:w-[34rem]"
+                    : "hidden w-56 opacity-55 sm:block sm:w-72"
+                }`}
+              >
+                <div className={`relative w-full ${isCenter ? "h-64 sm:h-[26rem]" : "h-52 sm:h-64"}`}>
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 256px, 544px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                  {(item.eyebrow || item.title) && (
+                    <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 text-white">
+                      {item.eyebrow ? (
+                        <p className="text-xs uppercase tracking-[0.3em] text-white/80">{item.eyebrow}</p>
+                      ) : null}
+                      {item.title ? <h3 className="mt-1 font-display text-2xl sm:text-3xl">{item.title}</h3> : null}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Controls */}
         <button
-          aria-label="previous"
-          onClick={() => go(-1)}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 shadow border border-sand/30"
-        >
-          ‹
-        </button>
-        <button
-          aria-label="next"
           onClick={() => go(1)}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 shadow border border-sand/30"
+          className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          aria-label="Next service image"
         >
-          ›
+          <i className="fa-solid fa-chevron-right" />
         </button>
       </div>
 
-      {/* Dots */}
-      <div className="mt-3 flex justify-center gap-2">
-        {images.map((_, i) => (
+      <div className="mt-4 flex justify-center gap-3 sm:hidden">
+        <button
+          onClick={() => go(-1)}
+          className="flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          aria-label="Previous service image"
+        >
+          <i className="fa-solid fa-chevron-left" />
+        </button>
+        <button
+          onClick={() => go(1)}
+          className="flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          aria-label="Next service image"
+        >
+          <i className="fa-solid fa-chevron-right" />
+        </button>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-2">
+        {items.map((_, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            className={`h-2 w-8 rounded-full transition-all duration-300 ${i === index ? "bg-olive" : "bg-sand/40"}`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              i === index ? "w-6 bg-ink" : "w-1.5 bg-ink/30"
+            }`}
+            aria-label={`Go to image ${i + 1}`}
           />
         ))}
       </div>

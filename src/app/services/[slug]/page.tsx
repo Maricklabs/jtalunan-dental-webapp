@@ -10,7 +10,12 @@ type ServiceData = {
   hero: string;
   description: string;
   highlights: string[];
-  gallery: string[];
+  gallery: {
+    src: string;
+    alt: string;
+    eyebrow?: string;
+    title?: string;
+  }[];
 };
 
 const services: Record<string, ServiceData> = {
@@ -26,7 +31,26 @@ const services: Record<string, ServiceData> = {
       "Tooth-colored composite restorations for cavities",
       "Simple extractions with careful post-op instructions"
     ],
-    gallery: ["/images/oral_prophylaxis.jpg", "/images/tooth_restoration.jpg"]
+    gallery: [
+      {
+        src: "/images/oral_prophylaxis.jpg",
+        alt: "General dentistry cleaning before",
+        eyebrow: "Before",
+        title: "Oral Prophylaxis"
+      },
+      {
+        src: "/images/tooth_restoration.jpg",
+        alt: "General dentistry restoration",
+        eyebrow: "Treatment",
+        title: "Tooth Restoration"
+      },
+      {
+        src: "/images/teeth_whitening.jpg",
+        alt: "General dentistry whitening",
+        eyebrow: "After",
+        title: "Brightened Smile"
+      }
+    ]
   },
 
   "orthodontics-braces": {
@@ -41,7 +65,26 @@ const services: Record<string, ServiceData> = {
       "Regular adjustments and retention planning",
       "Clear instructions for care, hygiene, and diet while in braces"
     ],
-    gallery: ["/images/braces_installation.jpg"]
+    gallery: [
+      {
+        src: "/images/orthodontics.jpg",
+        alt: "Orthodontic treatment before",
+        eyebrow: "Before",
+        title: "Orthodontic Treatment"
+      },
+      {
+        src: "/images/braces_installation.jpg",
+        alt: "Day one of metal braces",
+        eyebrow: "Day 1",
+        title: "Metal Braces"
+      },
+      {
+        src: "/images/adposter_2.jpg",
+        alt: "Orthodontic clinic setting",
+        eyebrow: "Clinic",
+        title: "Patient Care"
+      }
+    ]
   },
 
   "oral-surgery": {
@@ -55,7 +98,26 @@ const services: Record<string, ServiceData> = {
       "Management of minor oral lesions and soft-tissue procedures",
       "Clear post-operative instructions and follow-up care"
     ],
-    gallery: ["/images/adofferings_3.jpg"]
+    gallery: [
+      {
+        src: "/images/oralSurgery.jpg",
+        alt: "Oral surgery procedure",
+        eyebrow: "Before",
+        title: "Surgical Care"
+      },
+      {
+        src: "/images/adofferings_3.jpg",
+        alt: "Oral surgery setting",
+        eyebrow: "During",
+        title: "Comfort-First Treatment"
+      },
+      {
+        src: "/images/adofferings_4.jpg",
+        alt: "Oral surgery aftercare",
+        eyebrow: "After",
+        title: "Recovery Support"
+      }
+    ]
   },
 
   "cosmetic-dentistry": {
@@ -69,7 +131,26 @@ const services: Record<string, ServiceData> = {
       "Direct composite bonding and tooth reshaping",
       "Small smile correction cases and shade matching"
     ],
-    gallery: ["/images/teeth_whitening.jpg", "/images/tooth_abfraction.jpg", "/images/tooth_restoration.jpg"]
+    gallery: [
+      {
+        src: "/images/teeth_whitening.jpg",
+        alt: "Teeth whitening before",
+        eyebrow: "Before",
+        title: "Teeth Whitening"
+      },
+      {
+        src: "/images/tooth_abfraction.jpg",
+        alt: "Tooth abfraction repair",
+        eyebrow: "Treatment",
+        title: "Tooth Abfraction"
+      },
+      {
+        src: "/images/tooth_restoration.jpg",
+        alt: "Cosmetic restoration after",
+        eyebrow: "After",
+        title: "Tooth Restoration"
+      }
+    ]
   }
 };
 
@@ -120,7 +201,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               <aside className="md:w-1/3">
                 <div className="rounded-lg overflow-hidden border border-sand/30 bg-white">
                   <div className="relative h-48">
-                    <Image src={data.gallery[0]} alt={`${data.title} image`} fill className="object-cover" />
+                    <Image src={data.gallery[0].src} alt={`${data.title} image`} fill className="object-cover" />
                   </div>
                   <div className="p-4">
                     <h5 className="font-semibold">Quick Facts</h5>
@@ -134,7 +215,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <div className="mt-10">
               <SectionHeading eyebrow="Gallery" title="Before & After" size="md" />
               <div className="mt-6">
-                <ServiceGallery images={data.gallery} />
+                <ServiceGallery items={data.gallery} />
               </div>
             </div>
           </div>
