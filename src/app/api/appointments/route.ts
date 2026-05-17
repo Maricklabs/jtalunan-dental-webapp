@@ -13,7 +13,10 @@ type AppointmentPayload = {
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabase = createClient(
+  supabaseUrl || "https://placeholder.supabase.co", 
+  supabaseAnonKey || "placeholder"
+);
 
 const getClientIp = (request: Request) => {
   const forwarded = request.headers.get("x-forwarded-for");
