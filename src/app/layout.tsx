@@ -56,7 +56,11 @@ export default function RootLayout({
               className="flex h-16 w-16 items-center justify-center rounded-full bg-ink text-cream shadow-lift transition hover:-translate-y-0.5"
               aria-label="Open chatbot"
             >
-              <i className="fa-solid fa-robot text-3xl" aria-hidden="true" />
+              <img
+                src="/images/Logo_wbg.png"
+                alt="JT Alunan Dental Clinic"
+                className="h-16 w-16 object-contain"
+              />
             </button>
           </div>
           <FooterWrapper />
