@@ -1,30 +1,41 @@
+import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "@/components/SectionHeading";
 
 const coreServices = [
   {
     title: "General Dentistry",
+    slug: "general-dentistry",
     description: "Preventive and restorative care that keeps every smile healthy.",
     items: ["Check-ups", "Cleanings (Prophylaxis)", "Tooth-Colored Fillings", "Extractions"]
   },
   {
     title: "Orthodontics (Braces)",
+    slug: "orthodontics-braces",
     description: "Straighten and align teeth with flexible payment options.",
     items: ["Metal Braces", "Ceramic Braces", "Retainers", "Flexible Payment Plans"]
   },
   {
     title: "Oral Surgery",
+    slug: "oral-surgery",
     description: "Comfort-focused procedures with careful aftercare guidance.",
     items: ["Wisdom Tooth Removal", "Minor Oral Surgeries", "Post-Op Instructions"]
   },
   {
     title: "Cosmetic Dentistry",
+    slug: "cosmetic-dentistry",
     description: "Enhance your smile with natural-looking aesthetic treatments.",
     items: ["Teeth Whitening", "Dental Veneers", "Dental Bonding", "Smile Makeovers"]
   }
 ];
 
 export default function ServicesPage() {
+  const showcaseItems = [
+    { src: "/images/cleaning.png", alt: "Cleaning", slug: "general-dentistry" },
+    { src: "/images/braces.png", alt: "Braces", slug: "orthodontics-braces" },
+    { src: "/images/dentures.png", alt: "Dentures", slug: "cosmetic-dentistry" }
+  ];
+
   return (
     <div>
       <section className="section-pad">
@@ -47,8 +58,25 @@ export default function ServicesPage() {
               </Link>
             </div>
           </div>
-          <div className="card-shell flex min-h-[240px] items-center justify-center text-base text-ink/60">
-            Image placeholder: service showcase photo
+          <div className="card-shell p-6">
+            <h3 className="font-display text-xl text-ink">Showcase</h3>
+            <p className="mt-2 text-base text-ink/70">Click an image to jump to that service.</p>
+            <div className="mt-4 mx-auto max-w-3xl">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {showcaseItems.map((it) => (
+                  <a key={it.src} href={`#${it.slug}`} className="group block active:opacity-95 cursor-pointer">
+                      <div className="relative overflow-hidden rounded-3xl bg-transparent mx-auto max-w-[300px] h-48 sm:h-56 md:h-60 transition-shadow duration-300 group-hover:shadow-lg group-hover:ring-2 group-hover:ring-olive/30 focus-within:ring-2 focus-within:ring-olive/30">
+                        <Image
+                          src={it.src}
+                          alt={it.alt}
+                          fill
+                          className="object-cover w-full h-full rounded-3xl"
+                        />
+                      </div>
+                    </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -62,7 +90,7 @@ export default function ServicesPage() {
         <div className="mt-10 space-y-6">
           {coreServices.map((service) => (
             <div key={service.title} className="card-shell p-6">
-              <h3 className="font-display text-2xl text-ink">{service.title}</h3>
+              <h3 id={service.slug} className="font-display text-2xl text-ink">{service.title}</h3>
               <p className="mt-3 text-base text-ink/70">{service.description}</p>
               <ul className="mt-4 space-y-2 text-base text-ink/70">
                 {service.items.map((item) => (

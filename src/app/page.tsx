@@ -65,6 +65,7 @@ const transformations: TransformationCard[] = [
   }
 ];
 
+
 export default function HomePage() {
   return (
     <div>
@@ -101,6 +102,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      
 
       <section className="section-pad">
         <SectionHeading
