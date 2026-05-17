@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import { concernOptions } from "@/data/services";
 
@@ -17,6 +17,8 @@ const timeSlots = [
   "5:00 PM"
 ];
 
+const STORAGE_KEY = "jt-clinic-appointment-draft";
+
 export default function BookPage() {
   const [formValues, setFormValues] = useState({
     firstName: "",
@@ -29,6 +31,32 @@ export default function BookPage() {
   const [selectedConcerns, setSelectedConcerns] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+
+    try {
+      const parsed = JSON.parse(saved) as {
+        formValues: typeof formValues;
+        selectedConcerns: string[];
+      };
+      if (parsed?.formValues) {
+        setFormValues(parsed.formValues);
+      }
+      if (parsed?.selectedConcerns) {
+        setSelectedConcerns(parsed.selectedConcerns);
+      }
+    } catch {
+      window.localStorage.removeItem(STORAGE_KEY);
+    }
+  }, []);
+
+  useEffect(() => {
+    const payload = JSON.stringify({ formValues, selectedConcerns });
+    window.localStorage.setItem(STORAGE_KEY, payload);
+  }, [formValues, selectedConcerns]);
 
   const handleChange = (field: keyof typeof formValues) =>
     (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -43,7 +71,7 @@ export default function BookPage() {
     );
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const missingFields: string[] = [];
@@ -62,8 +90,52 @@ export default function BookPage() {
       return;
     }
 
-    setErrorMessage(null);
-    setSuccessOpen(true);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    const payload = {
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      phone: formValues.phone,
+      email: formValues.email,
+      date: formValues.date,
+      time: formValues.time,
+      concerns: selectedConcerns
+    };
+
+    try {
+      const response = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setSuccessOpen(false);
+        setErrorMessage(data?.error || "We could not submit your request.");
+        return;
+      }
+
+      setErrorMessage(null);
+      setSuccessOpen(true);
+      setFormValues({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        date: "",
+        time: ""
+      });
+      setSelectedConcerns([]);
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      setSuccessOpen(false);
+      setErrorMessage("We could not submit your request. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -182,8 +254,12 @@ export default function BookPage() {
               </div>
             </div>
 
-            <button type="submit" className="btn-primary w-full">
-              Schedule Appointment
+            <button
+              type="submit"
+              className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Schedule Appointment"}
             </button>
           </form>
         </div>
