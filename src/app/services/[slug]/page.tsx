@@ -197,23 +197,21 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   </Link>
                 </div>
               </div>
-
-              <aside className="md:w-1/3">
-                <div className="rounded-lg overflow-hidden border border-sand/30 bg-white">
-                  <div className="relative h-48">
-                    <Image src={data.gallery[0].src} alt={`${data.title} image`} fill className="object-cover" />
-                  </div>
-                  <div className="p-4">
-                    <h5 className="font-semibold">Quick Facts</h5>
-                    <p className="mt-2 text-sm text-ink/70">Typical visit time: 30–60 minutes • Insurance & cash accepted</p>
-                  </div>
-                </div>
-              </aside>
             </div>
 
-            {/* Gallery / Before & After */}
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {data.highlights.map((item) => (
+                <div key={item} className="rounded-2xl border border-sand/40 bg-sand/10 p-5">
+                  <p className="font-display text-lg text-ink">{item}</p>
+                </div>
+              ))}
+            </div>
+
             <div className="mt-10">
               <SectionHeading eyebrow="Gallery" title="Before & After" size="md" />
+              <p className="mt-4 max-w-3xl text-sm text-ink/70">
+                The gallery is temporarily simplified while we refine the final presentation.
+              </p>
               <div className="mt-6">
                 <ServiceGallery items={data.gallery} />
               </div>

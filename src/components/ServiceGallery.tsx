@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 type Props = {
@@ -17,9 +17,10 @@ export default function ServiceGallery({ items, intervalMs = 3500 }: Props) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const total = items.length;
+  const hasMultiple = total > 1;
 
   useEffect(() => {
-    if (total <= 1) return;
+    if (!hasMultiple) return;
     if (paused) return;
 
     const t = setInterval(() => {
@@ -27,14 +28,15 @@ export default function ServiceGallery({ items, intervalMs = 3500 }: Props) {
     }, intervalMs);
 
     return () => clearInterval(t);
-  }, [total, intervalMs, paused]);
+  }, [hasMultiple, intervalMs, paused]);
 
   const go = (dir: number) => {
+    if (!hasMultiple) return;
     setIndex((i) => (i + dir + total) % total);
   };
 
   const getIndex = (offset: number) => (index + offset + total) % total;
-  const cards = total > 1
+  const cards = hasMultiple
     ? [
         { item: items[getIndex(-1)], position: "left" as const },
         { item: items[getIndex(0)], position: "center" as const },
@@ -44,34 +46,35 @@ export default function ServiceGallery({ items, intervalMs = 3500 }: Props) {
 
   return (
     <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <div className="relative flex w-full items-center justify-center gap-4 px-2 sm:gap-6 sm:px-0">
+      <div className="relative flex w-full items-center justify-center gap-2 px-0 sm:gap-6 sm:px-2">
         <button
           onClick={() => go(-1)}
-          className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          className={`hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30 ${hasMultiple ? "" : "opacity-40"}`}
           aria-label="Previous service image"
+          disabled={!hasMultiple}
         >
           <i className="fa-solid fa-chevron-left" />
         </button>
 
-        <div className="flex flex-1 items-center justify-center gap-4 sm:gap-6">
+        <div className="flex flex-1 items-center justify-center gap-3 sm:gap-6 overflow-visible">
           {cards.map(({ item, position }) => {
             const isCenter = position === "center";
             return (
               <div
                 key={`${item.src}-${position}`}
-                className={`overflow-hidden rounded-2xl border border-sand/60 bg-white transition-all duration-500 ${
+                className={`overflow-hidden rounded-2xl border border-sand/60 bg-white transition-all duration-500 ease-out ${
                   isCenter
-                    ? "z-10 w-64 scale-105 shadow-md sm:w-[34rem]"
-                    : "hidden w-56 opacity-55 sm:block sm:w-72"
+                    ? "z-10 w-[88vw] max-w-[34rem] scale-100 shadow-md sm:w-[34rem]"
+                    : "hidden w-56 opacity-55 sm:block sm:w-72 sm:scale-95"
                 }`}
               >
-                <div className={`relative w-full ${isCenter ? "h-64 sm:h-[26rem]" : "h-52 sm:h-64"}`}>
+                <div className={`relative w-full ${isCenter ? "h-60 sm:h-[26rem]" : "h-44 sm:h-64"}`}>
                   <Image
                     src={item.src}
                     alt={item.alt}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 640px) 256px, 544px"
+                    sizes="(max-width: 640px) 88vw, (max-width: 1024px) 34rem, 544px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
                   {(item.eyebrow || item.title) && (
@@ -90,8 +93,9 @@ export default function ServiceGallery({ items, intervalMs = 3500 }: Props) {
 
         <button
           onClick={() => go(1)}
-          className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          className={`hidden sm:flex h-12 w-12 shrink-0 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30 ${hasMultiple ? "" : "opacity-40"}`}
           aria-label="Next service image"
+          disabled={!hasMultiple}
         >
           <i className="fa-solid fa-chevron-right" />
         </button>
@@ -100,32 +104,36 @@ export default function ServiceGallery({ items, intervalMs = 3500 }: Props) {
       <div className="mt-4 flex justify-center gap-3 sm:hidden">
         <button
           onClick={() => go(-1)}
-          className="flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          className={`flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30 ${hasMultiple ? "" : "opacity-40"}`}
           aria-label="Previous service image"
+          disabled={!hasMultiple}
         >
           <i className="fa-solid fa-chevron-left" />
         </button>
         <button
           onClick={() => go(1)}
-          className="flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30"
+          className={`flex h-10 w-10 items-center justify-center border border-sand/60 bg-white text-ink transition hover:bg-sand/30 ${hasMultiple ? "" : "opacity-40"}`}
           aria-label="Next service image"
+          disabled={!hasMultiple}
         >
           <i className="fa-solid fa-chevron-right" />
         </button>
       </div>
 
-      <div className="mt-6 flex justify-center gap-2">
-        {items.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === index ? "w-6 bg-ink" : "w-1.5 bg-ink/30"
-            }`}
-            aria-label={`Go to image ${i + 1}`}
-          />
-        ))}
-      </div>
+      {hasMultiple ? (
+        <div className="mt-6 flex justify-center gap-2">
+          {items.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === index ? "w-6 bg-ink" : "w-1.5 bg-ink/30"
+              }`}
+              aria-label={`Go to image ${i + 1}`}
+            />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
