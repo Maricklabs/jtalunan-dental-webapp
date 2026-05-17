@@ -9,24 +9,32 @@ const coreCards = [
   {
     title: "General Dentistry",
     description: "Check-ups, cleanings, fillings, and gentle extractions.",
+    imageSrc: "/images/generalDentistry.jpg",
+    imageAlt: "General dentistry checkup",
     cta: "Learn More",
     href: "/services"
   },
   {
     title: "Orthodontics (Braces)",
     description: "Metal or ceramic braces with flexible payment plans.",
+    imageSrc: "/images/orthodontics.jpg",
+    imageAlt: "Orthodontic braces",
     cta: "Learn More",
     href: "/services"
   },
   {
     title: "Oral Surgery",
     description: "Wisdom tooth removal and minor oral surgeries with gentle care.",
+    imageSrc: "/images/oralSurgery.jpg",
+    imageAlt: "Oral surgery tools",
     cta: "Learn More",
     href: "/services"
   },
   {
     title: "Clinic Info",
     description: "Find our hours, directions, and contact details.",
+    imageSrc: "/images/clinicInfo.jpg",
+    imageAlt: "Clinic reception area",
     cta: "Contact Us",
     href: "/location"
   }
@@ -34,19 +42,19 @@ const coreCards = [
 
 const testimonials = [
   {
-    name: "Maria L.",
-    quote: "The calm explanation eased my dental anxiety right away.",
-    image: "/images/adtestimonial_1.jpg"
-  },
-  {
     name: "Carlos R.",
-    quote: "The cleaning was painless, and the staff was incredibly kind.",
-    image: "/images/adtestimonial_2.jpg"
+    quote: "The calm explanation eased my dental anxiety right away.",
+    image: "/images/adtestimonial_3.jpg"
   },
   {
-    name: "Jenny M.",
+    name: "Maria L.",
+    quote: "The cleaning was painless, and the staff was incredibly kind.",
+    image: "/images/adtestimonial_4.jpg"
+  },
+  {
+    name: "Jane M.",
     quote: "The braces payment plan was affordable and clearly explained.",
-    image: "/images/doctor_profile_1.jpg"
+    image: "/images/adtestimonial_5.jpg"
   }
 ];
 
@@ -197,13 +205,6 @@ export default function HomePage() {
     <div>
       {/* Hero */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-cream">
-        <Image
-          src="/heroimages/2.svg"
-          alt="Dental care illustration"
-          fill
-          className="sm:hidden object-contain object-right"
-          priority
-        />
         {heroImages.map((src, i) => (
           <Image
             key={src}
@@ -216,7 +217,7 @@ export default function HomePage() {
             priority={i === 0}
           />
         ))}
-        <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-cream via-cream/80 to-transparent sm:w-2/3" />
+        <div className="absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-cream/90 via-cream/60 to-transparent sm:w-2/3" />
         <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-olive/15 blur-3xl" />
         <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-terracotta/10 blur-3xl" />
         <div className="relative z-10 w-full px-6 py-12 sm:px-12 lg:pl-24 lg:pr-6">
@@ -259,8 +260,14 @@ export default function HomePage() {
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {coreCards.map((card) => (
             <div key={card.title} className="card-shell flex h-full flex-col p-6">
-              <div className="mb-5 flex h-36 items-center justify-center rounded-2xl border border-sand/70 bg-sand/40 text-sm uppercase tracking-[0.2em] text-ink/50">
-                Image placeholder
+              <div className="relative mb-5 h-36 overflow-hidden rounded-2xl border border-sand/70 bg-sand/40">
+                <Image
+                  src={card.imageSrc}
+                  alt={card.imageAlt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
               </div>
               <h3 className="font-display text-xl text-ink">{card.title}</h3>
               <p className="mt-3 text-base text-ink/70">{card.description}</p>

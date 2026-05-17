@@ -1,5 +1,6 @@
 import SectionHeading from "@/components/SectionHeading";
-import LocationMap from "@/components/LocationMap";
+import dynamic from 'next/dynamic';
+const LocationMap = dynamic(() => import('@/components/LocationMap'), { ssr: false });
 
 const travelTips = [
   "Near the Oton Town Plaza for easy landmark navigation.",
