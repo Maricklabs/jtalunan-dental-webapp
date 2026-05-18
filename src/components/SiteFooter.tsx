@@ -31,7 +31,7 @@ export default function SiteFooter({ page }: SiteFooterProps) {
       </section>
 
       <footer className="border-t border-sand/70 bg-cream/90">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-3 lg:px-8">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8">
           <div>
             <img
               src="/images/Logo.png"
@@ -56,6 +56,43 @@ export default function SiteFooter({ page }: SiteFooterProps) {
             </p>
             <p className="mt-3 text-base text-ink/75">Monday-Saturday: 9:00 AM - 5:00 PM</p>
             <p className="mt-3 text-base text-ink/75">Sunday: By appointment only</p>
+          </div>
+          <div>
+            <p className="text-base font-semibold uppercase tracking-[0.2em] text-olive">
+              Navigation
+            </p>
+            <ul className="mt-3 space-y-2 text-base text-ink/75">
+              <li>
+                <a href="/" className="no-underline transition hover:text-olive">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="/services" className="no-underline transition hover:text-olive">
+                  Services
+                </a>
+              </li>
+              <li>
+                <a href="/about" className="no-underline transition hover:text-olive">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="/location" className="no-underline transition hover:text-olive">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="/privacy-policy" className="no-underline transition hover:text-olive">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="/terms-of-use" className="no-underline transition hover:text-olive">
+                  Terms of Use
+                </a>
+              </li>
+            </ul>
           </div>
           <div>
             <p className="text-base font-semibold uppercase tracking-[0.2em] text-olive">
