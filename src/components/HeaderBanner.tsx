@@ -5,7 +5,7 @@ type HeaderBannerProps = {
 };
 
 const DEFAULT_DESKTOP = "/images/banner.svg";
-const DEFAULT_MOBILE = "/images/banner.svg";
+const DEFAULT_MOBILE = "/heroimages/mobileBanner.png";
 
 export default function HeaderBanner({
   desktopSrc = DEFAULT_DESKTOP,

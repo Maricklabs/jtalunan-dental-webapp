@@ -39,6 +39,50 @@ export const servicesDetailed = [
   }
 ];
 
+export const serviceMenu = [
+  {
+    title: "General Dentistry",
+    slug: "general-dentistry",
+    summary:
+      "Everyday dental care focused on prevention, comfort, and keeping your teeth healthy year-round.",
+    treatments: [
+      "Check-ups",
+      "Cleanings",
+      "Tooth-colored fillings",
+      "Gentle extractions"
+    ],
+    visitNote:
+      "Ideal for routine care, tooth pain, or when you need a quick assessment and treatment plan."
+  },
+  {
+    title: "Orthodontics (Braces)",
+    slug: "orthodontics-braces",
+    summary:
+      "Straighten teeth with modern braces and a clear plan from consultation to retention.",
+    treatments: ["Metal braces", "Ceramic braces", "Retainers", "Bite correction"],
+    visitNote:
+      "Best if you want straighter teeth, improved bite alignment, or a long-term smile upgrade."
+  },
+  {
+    title: "Oral Surgery",
+    slug: "oral-surgery",
+    summary:
+      "Minor surgical procedures delivered with gentle technique and focused aftercare.",
+    treatments: ["Wisdom tooth removal", "Tooth extraction", "Surgical consult"],
+    visitNote:
+      "Recommended for impacted teeth, severe tooth pain, or when extractions are needed."
+  },
+  {
+    title: "Cosmetic Dentistry",
+    slug: "cosmetic-dentistry",
+    summary:
+      "Enhance the look of your smile with safe, confidence-boosting cosmetic treatments.",
+    treatments: ["Teeth whitening", "Dental veneers", "Dental bonding", "Smile makeover"],
+    visitNote:
+      "Great for stains, chips, or anyone who wants a brighter, more even smile."
+  }
+];
+
 export const concernOptions = [
   "Check-up",
   "Cleaning (Prophylaxis)",
