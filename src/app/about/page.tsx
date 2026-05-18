@@ -55,53 +55,61 @@ export default function AboutPage() {
   return (
     <div>
       {/* Hero / Intro */}
-      <section className="section-pad bg-cream/50">
+      <section className="section-pad bg-cream">
         <div className="max-w-7xl mx-auto px-6">
-          <SectionHeading title="About Us" align="center" size="xl" />
+          <SectionHeading
+            title="About Us"
+            subtitle="Led by Dr. Jogi Terese Alunan, JT Alunan Dental Clinic blends modern dentistry with the warmth of Filipino care. We prioritize preventive treatment, patient education, and a calm, reassuring approach so you can make confident decisions about your oral health."
+            align="center"
+            size="xl"
+          />
+        </div>
 
-          {/* Subheader: Text & CTA */}
-          <div className="mt-8 max-w-3xl mx-auto text-center">
-            <p className="text-lg text-ink/80 leading-relaxed">
-              Led by Dr. Jogi Terese Alunan, JT Alunan Dental Clinic blends modern
-              dentistry with the warmth of Filipino care. We prioritize preventive
-              treatment, patient education, and a calm, reassuring approach so you
-              can make confident decisions about your oral health.
-            </p>
-          </div>
+        <div className="relative mt-10 flex min-h-[80vh] items-center overflow-hidden bg-cream">
+          <Image
+            src="/images/doctor_profile_hero.png"
+            alt="Portrait of Dr. Jogi Terese Alunan"
+            fill
+            className="hidden object-contain object-right transition-opacity duration-700 sm:block"
+            priority
+          />
+          <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-cream/95 via-cream/80 to-transparent sm:w-3/5" />
+          <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-olive/15 blur-3xl" />
+          <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-terracotta/10 blur-3xl" />
+          <div className="relative z-10 w-full px-6 py-14 sm:px-12 lg:pl-24 lg:pr-6">
+            <div className="w-full lg:w-[52%]">
+              <div className="rounded-[1.75rem] border border-white/70 bg-white/85 p-6 shadow-[0_18px_60px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:p-8 lg:p-10">
+                <p className="pill w-fit">Dr. Jogi Terese Alunan</p>
+                <h3 className="mt-4 font-display text-2xl sm:text-3xl text-ink">
+                  Gentle care with clear guidance
+                </h3>
+                <p className="mt-4 text-sm sm:text-base text-ink/70 leading-relaxed">
+                  Dr. Jogi Terese Alunan is a graduate of Iloilo Doctor's College (Batch 2021) and passed the Dental Board Examination in May 2022. With three years of clinical experience, she remains committed to continuous learning through advanced training in orthodontics, aesthetic dentistry, and surgery.
+                </p>
+                <p className="mt-4 text-sm sm:text-base text-ink/70 leading-relaxed">
+                  Her goal is to provide quality yet affordable dental care while helping patients feel calm, informed, and supported through every visit.
+                </p>
 
-          {/* Profile Card & Image Side-by-Side */}
-          <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
-            {/* Profile Card */}
-            <div className="card-shell p-6">
-              <h3 className="font-display text-2xl text-ink">Dr. Jogi Terese Alunan</h3>
-              <p className="mt-3 text-sm text-ink/70 leading-relaxed">
-                Dr. Jogi Terese Alunan is a graduate of Iloilo Doctor's College (Batch 2021) and passed the Dental Board Examination in May 2022. With three years of clinical experience, she remains committed to continuous learning through advanced training in orthodontics, aesthetic dentistry, and surgery.
-              </p>
-              <p className="mt-3 text-sm text-ink/70 leading-relaxed">
-                With gentle and detail-oriented hands, her goal is to provide quality yet affordable dental care for everyone. Her mission is to reassure patients that dental treatment is not scary and that visiting the dentist can be a comfortable and positive experience.
-              </p>
-              <div className="mt-4 space-y-2 text-sm text-ink/70">
-                <p><span className="font-semibold text-ink">Credential:</span> Doctor of Dental Surgery, Iloilo Doctor's College</p>
-                <p><span className="font-semibold text-ink">Board Exam:</span> Passed May 2022</p>
-                <p><span className="font-semibold text-ink">Specialties:</span> Orthodontics, aesthetic dentistry, oral surgery</p>
-              </div>
-              <div className="mt-6">
-                <Link href="/book" className="btn-primary w-full text-center">
-                  Book an Appointment with Dr. Jogi
-                </Link>
-              </div>
-            </div>
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-sand/30 bg-cream/40 p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-ink/55">Credential</p>
+                    <p className="mt-2 text-sm text-ink/75">Doctor of Dental Surgery</p>
+                  </div>
+                  <div className="rounded-2xl border border-sand/30 bg-cream/40 p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-ink/55">Board Exam</p>
+                    <p className="mt-2 text-sm text-ink/75">Passed May 2022</p>
+                  </div>
+                  <div className="rounded-2xl border border-sand/30 bg-cream/40 p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-ink/55">Focus</p>
+                    <p className="mt-2 text-sm text-ink/75">Preventive, aesthetic, and orthodontic care</p>
+                  </div>
+                </div>
 
-            {/* Image */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="rounded-2xl overflow-hidden shadow-xl max-w-sm">
-                <Image
-                  src="/images/doctor_profile_hero.png"
-                  alt="Portrait of Dr. Jogi Terese Alunan"
-                  width={300}
-                  height={300}
-                  className="w-full h-auto object-cover"
-                />
+                <div className="mt-6">
+                  <Link href="/book" className="btn-primary w-full text-center sm:w-auto">
+                    Book an Appointment with Dr. Jogi
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

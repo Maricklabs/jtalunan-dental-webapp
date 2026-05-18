@@ -1,32 +1,6 @@
 import Link from "next/link";
 import SectionHeading from "@/components/SectionHeading";
-
-const coreServices = [
-  {
-    title: "General Dentistry",
-    slug: "general-dentistry",
-    description: "Preventive and restorative care that keeps every smile healthy.",
-    items: ["Check-ups", "Cleanings (Prophylaxis)", "Tooth-Colored Fillings", "Extractions"]
-  },
-  {
-    title: "Orthodontics (Braces)",
-    slug: "orthodontics-braces",
-    description: "Straighten and align teeth with flexible payment options.",
-    items: ["Metal Braces", "Ceramic Braces", "Retainers", "Flexible Payment Plans"]
-  },
-  {
-    title: "Oral Surgery",
-    slug: "oral-surgery",
-    description: "Comfort-focused procedures with careful aftercare guidance.",
-    items: ["Wisdom Tooth Removal", "Minor Oral Surgeries", "Post-Op Instructions"]
-  },
-  {
-    title: "Cosmetic Dentistry",
-    slug: "cosmetic-dentistry",
-    description: "Enhance your smile with natural-looking aesthetic treatments.",
-    items: ["Teeth Whitening", "Dental Veneers", "Dental Bonding", "Smile Makeovers"]
-  }
-];
+import { serviceMenu } from "@/data/services";
 
 const careWorkflow = [
   {
@@ -50,13 +24,20 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="mx-auto max-w-3xl text-center">
             <SectionHeading
+              title="Services"
               align="center"
-              title="Our Services"
-              subtitle="A clean, straightforward view of the care we provide, organized to help you find the right treatment quickly."
               size="xl"
             />
 
-            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <p className="mt-8 text-lg sm:text-xl text-ink/80 leading-relaxed">
+              A clear overview of the clinic’s open services, organized to help you quickly see what each treatment covers and which concern it addresses.
+            </p>
+
+            <p className="mt-4 text-base sm:text-lg text-ink/70 leading-relaxed">
+              Choose the service that fits your concern, then book an assessment so the clinic can confirm the right treatment plan.
+            </p>
+
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/book" className="btn-primary w-full sm:w-auto">
                 Make an Appointment
               </Link>
@@ -68,70 +49,65 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionHeading
-            eyebrow="Workflow"
-            title="A Simple Care Process"
-            subtitle="A calm, structured flow that makes every visit easier to understand and follow."
-            align="center"
-          />
-
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {careWorkflow.map((step, index) => (
-              <div key={step.title} className="card-shell p-6">
-                <div className="pill w-fit">0{index + 1}</div>
-                <h3 className="mt-4 font-display text-2xl text-ink">{step.title}</h3>
-                <p className="mt-3 text-ink/70 leading-relaxed">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="section-pad bg-cream/20">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeading
-            eyebrow="Core Services"
-            title="Focused Care Across Every Treatment Area"
-            subtitle="Each service is presented with the same clean structure so the page feels organized and easy to scan."
+            eyebrow="Core services"
+            title="Simple, clear treatment categories"
+            subtitle="Each card shows the main service, the common treatments included, and the kind of concern it usually addresses."
             align="center"
           />
 
-          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {coreServices.map((service) => (
-              <div key={service.title} id={service.slug} className="card-shell p-6 sm:p-7 flex flex-col">
-                <div className="flex items-start justify-between gap-4">
+          <div className="mt-10 grid grid-cols-1 gap-6 xl:grid-cols-2">
+            {serviceMenu.map((service, index) => (
+              <div
+                key={service.title}
+                id={service.slug}
+                className="group card-shell overflow-hidden p-0 flex flex-col border border-sand/25 bg-white shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-4 border-b border-sand/20 bg-gradient-to-r from-cream/60 to-white px-6 py-5 sm:px-7">
                   <div>
-                    <p className="pill">Core Service</p>
+                    <p className="pill w-fit">0{index + 1}</p>
                     <h3 className="mt-4 font-display text-2xl text-ink">{service.title}</h3>
+                    <p className="mt-2 text-sm uppercase tracking-[0.2em] text-ink/45">Open service</p>
                   </div>
-                  <span className="rounded-full border border-sand/60 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
-                    Available
+                  <span className="rounded-full border border-sand/60 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
+                    {service.slug.replace(/-/g, " ")}
                   </span>
                 </div>
 
-                <p className="mt-4 text-base text-ink/70 leading-relaxed flex-grow">{service.description}</p>
+                <div className="grid gap-5 px-6 py-6 sm:px-7 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+                  <div>
+                    <p className="text-base text-ink/75 leading-relaxed">{service.summary}</p>
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {service.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-sand/60 bg-sand/15 px-3 py-1 text-sm text-ink/75"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+                    <div className="mt-5">
+                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink/55">Common treatments</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {service.treatments.map((item) => (
+                          <span
+                            key={item}
+                            className="rounded-full border border-sand/60 bg-sand/15 px-3 py-1 text-sm text-ink/75"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
 
-                <div className="mt-6">
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="btn-secondary w-full sm:w-auto px-5 py-3 text-sm sm:text-base tracking-[0.08em]"
-                  >
-                    Learn more
-                    <i className="fa-solid fa-arrow-right text-xs" />
-                  </Link>
+                  <div className="rounded-2xl border border-sand/40 bg-cream/30 p-4 sm:p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/55">Best for</p>
+                    <p className="mt-2 text-sm text-ink/70 leading-relaxed">{service.visitNote}</p>
+                    <div className="mt-4">
+                      <Link
+                        href={`/services/${service.slug}`}
+                        className="btn-secondary w-full justify-center px-5 py-3 text-sm sm:text-base tracking-[0.08em]"
+                      >
+                        Learn more
+                        <i className="fa-solid fa-arrow-right text-xs" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
