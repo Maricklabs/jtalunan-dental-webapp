@@ -1,6 +1,26 @@
+import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "@/components/SectionHeading";
 import { serviceMenu } from "@/data/services";
+
+const serviceReferenceImages: Record<string, { src: string; alt: string }> = {
+  "general-dentistry": {
+    src: "/images/generalDentistry.jpg",
+    alt: "General dentistry checkup reference image"
+  },
+  "orthodontics-braces": {
+    src: "/images/orthodontics.jpg",
+    alt: "Orthodontic braces reference image"
+  },
+  "oral-surgery": {
+    src: "/images/oralSurgery.jpg",
+    alt: "Oral surgery reference image"
+  },
+  "cosmetic-dentistry": {
+    src: "/images/Cosmetic_Dentistry_Supporting-Image.jpg",
+    alt: "Cosmetic dentistry supporting reference image"
+  }
+};
 
 const careWorkflow = [
   {
@@ -60,27 +80,29 @@ export default function ServicesPage() {
 
           <div className="mt-10 grid grid-cols-1 gap-6 xl:grid-cols-2">
             {serviceMenu.map((service, index) => (
-              <div
+              <Link
                 key={service.title}
                 id={service.slug}
-                className="group card-shell overflow-hidden p-0 flex flex-col border border-sand/25 bg-white shadow-sm"
+                href={`/services/${service.slug}`}
+                className="group card-shell flex h-full flex-col overflow-hidden border border-sand/25 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                aria-label={`Open ${service.title} details`}
               >
-                <div className="flex items-start justify-between gap-4 border-b border-sand/20 bg-gradient-to-r from-cream/60 to-white px-6 py-5 sm:px-7">
+                <div className="flex items-start justify-between gap-3 border-b border-sand/20 bg-gradient-to-r from-cream/60 to-white px-5 py-4 sm:px-6 sm:py-5">
                   <div>
                     <p className="pill w-fit">0{index + 1}</p>
-                    <h3 className="mt-4 font-display text-2xl text-ink">{service.title}</h3>
-                    <p className="mt-2 text-sm uppercase tracking-[0.2em] text-ink/45">Open service</p>
+                    <h3 className="mt-3 font-display text-2xl text-ink">{service.title}</h3>
+                    <p className="mt-1.5 text-sm uppercase tracking-[0.18em] text-ink/45">Open service</p>
                   </div>
-                  <span className="rounded-full border border-sand/60 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
+                  <span className="rounded-full border border-sand/60 bg-white/90 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-ink/60 sm:px-3 sm:text-xs sm:tracking-[0.2em]">
                     {service.slug.replace(/-/g, " ")}
                   </span>
                 </div>
 
-                <div className="grid gap-5 px-6 py-6 sm:px-7 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
-                  <div>
+                <div className="grid h-full gap-5 px-6 py-6 sm:px-7 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] lg:items-stretch">
+                  <div className="flex h-full flex-col">
                     <p className="text-base text-ink/75 leading-relaxed">{service.summary}</p>
 
-                    <div className="mt-5">
+                    <div className="mt-4">
                       <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ink/55">Common treatments</p>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {service.treatments.map((item) => (
@@ -95,21 +117,23 @@ export default function ServicesPage() {
                     </div>
                   </div>
 
-                  <div className="rounded-2xl border border-sand/40 bg-cream/30 p-4 sm:p-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/55">Best for</p>
-                    <p className="mt-2 text-sm text-ink/70 leading-relaxed">{service.visitNote}</p>
-                    <div className="mt-4">
-                      <Link
-                        href={`/services/${service.slug}`}
-                        className="btn-secondary w-full justify-center px-5 py-3 text-sm sm:text-base tracking-[0.08em]"
-                      >
-                        Learn more
-                        <i className="fa-solid fa-arrow-right text-xs" />
-                      </Link>
+                  <div className="flex h-full flex-col rounded-2xl border border-sand/40 bg-cream/30 p-3 sm:p-5">
+                    <Image
+                      src={serviceReferenceImages[service.slug].src}
+                      alt={serviceReferenceImages[service.slug].alt}
+                      width={640}
+                      height={360}
+                      className="mb-3 h-44 w-full rounded-xl object-cover object-center shadow-sm sm:mb-4 lg:h-48"
+                    />
+                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-ink/55 sm:text-xs sm:tracking-[0.2em]">Best for</p>
+                    <p className="mt-2 text-sm leading-relaxed text-ink/72 sm:text-sm">{service.visitNote}</p>
+                    <div className="mt-4 inline-flex w-full items-center justify-center rounded-full border border-olive/40 bg-transparent px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-olive transition group-hover:border-olive group-hover:bg-olive/10 sm:text-base">
+                      Learn more
+                      <i className="fa-solid fa-arrow-right text-xs" />
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

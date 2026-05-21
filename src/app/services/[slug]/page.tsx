@@ -23,7 +23,7 @@ const services: Record<string, ServiceData> = {
   "general-dentistry": {
     title: "General Dentistry",
     subtitle: "Routine care for healthy teeth and gums.",
-    hero: "/images/oral_prophylaxis.jpg",
+    hero: "/images/General_Dentistry_Checkup.jpg",
     description:
       "General dentistry covers routine exams, professional cleanings, fillings, and simple extractions. It is the starting point for preventive care and basic treatment when a tooth needs attention.",
     includes: [
@@ -36,21 +36,21 @@ const services: Record<string, ServiceData> = {
     gallery: [
       {
         src: "/images/oral_prophylaxis.jpg",
-        alt: "General dentistry cleaning",
+        alt: "General dentistry checkup",
         eyebrow: "Initial Visit",
         title: "Oral Prophylaxis"
       },
       {
-        src: "/images/tooth_restoration.jpg",
-        alt: "General dentistry restoration",
-        eyebrow: "Treatment Phase",
-        title: "Tooth Restoration"
+        src: "/images/General_Dentistry_Extraction.jpg",
+        alt: "Simple extraction",
+        eyebrow: "Procedure",
+        title: "Gentle Extraction"
       },
       {
-        src: "/images/teeth_whitening.jpg",
-        alt: "General dentistry whitening result",
-        eyebrow: "Completed Care",
-        title: "Brightened Smile"
+        src: "/images/generalDentistry.jpg",
+        alt: "General dentistry overview",
+        eyebrow: "Routine Care",
+        title: "Everyday Dental Care"
       }
     ]
   },
@@ -76,16 +76,16 @@ const services: Record<string, ServiceData> = {
         title: "Orthodontic Treatment"
       },
       {
-        src: "/images/braces_installation.jpg",
-        alt: "Day one of metal braces",
-        eyebrow: "Treatment Day 1",
-        title: "Metal Braces"
+        src: "/images/Orthodontics_Bite-Correction.jpg",
+        alt: "Bite correction treatment",
+        eyebrow: "Alignment",
+        title: "Bite Correction"
       },
       {
-        src: "/images/adposter_2.jpg",
-        alt: "Orthodontic clinic setting",
-        eyebrow: "Ongoing Care",
-        title: "Patient Care"
+        src: "/images/Orthodontics_Retainer.jpg",
+        alt: "Retainer device",
+        eyebrow: "Retention",
+        title: "Retainers"
       }
     ]
   },
@@ -93,7 +93,7 @@ const services: Record<string, ServiceData> = {
   "oral-surgery": {
     title: "Oral Surgery",
     subtitle: "Minor oral surgical care with careful planning.",
-    hero: "/images/adofferings_3.jpg",
+    hero: "/images/oralSurgery.jpg",
     description:
       "Oral surgery covers wisdom tooth removal, simple surgical extractions, and selected minor oral procedures. Care is planned to support comfort, safety, and clear aftercare instructions.",
     includes: [
@@ -105,14 +105,14 @@ const services: Record<string, ServiceData> = {
     suitableFor: ["Impacted wisdom teeth", "Teeth needing surgical removal", "Selected minor oral procedures"],
     gallery: [
       {
-        src: "/images/oralSurgery.jpg",
+        src: "/images/Oral_Surgery_Toothe-Extraction.jpg",
         alt: "Oral surgery procedure",
         eyebrow: "Initial Evaluation",
-        title: "Surgical Care"
+        title: "Tooth Extraction"
       },
       {
         src: "/images/adofferings_3.jpg",
-        alt: "Oral surgery setting",
+        alt: "Oral surgery treatment setting",
         eyebrow: "Procedure",
         title: "Comfort-First Treatment"
       },
@@ -128,7 +128,7 @@ const services: Record<string, ServiceData> = {
   "cosmetic-dentistry": {
     title: "Cosmetic Dentistry",
     subtitle: "Aesthetic treatments that improve smile appearance.",
-    hero: "/images/teeth_whitening.jpg",
+    hero: "/images/Cosmetic_Dentistry_Supporting-Image.jpg",
     description:
       "Cosmetic dentistry includes whitening, bonding, veneers, and other smile enhancement treatments. The goal is to improve color, shape, and overall appearance while keeping the result as natural-looking as possible.",
     includes: [
@@ -146,10 +146,10 @@ const services: Record<string, ServiceData> = {
         title: "Teeth Whitening"
       },
       {
-        src: "/images/tooth_abfraction.jpg",
-        alt: "Tooth abfraction repair",
-        eyebrow: "Treatment Phase",
-        title: "Tooth Abfraction"
+        src: "/images/Cosmetic_Dentistry_Dental-Veneers.jpg",
+        alt: "Dental veneers treatment",
+        eyebrow: "Restoration",
+        title: "Dental Veneers"
       },
       {
         src: "/images/tooth_restoration.jpg",
